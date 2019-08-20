@@ -1,0 +1,163 @@
+
+.CarouselDesc {
+  .pos_r;
+  height: 11rem;
+
+  .Carousel__indicators {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 15;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding-left: 0;
+    margin-right: 15%;
+    margin-left: 15%;
+    list-style: none;
+    li {
+      box-sizing: content-box;
+      -ms-flex: 0 1 auto;
+      flex: 0 1 auto;
+      width: 30px;
+      height: 3px;
+      margin-right: 3px;
+      margin-left: 3px;
+      text-indent: -999px;
+      cursor: pointer;
+      background-color: #fff;
+      background-clip: padding-box;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      opacity: .5;
+      transition: opacity .6s ease;
+    }
+    .Carousel__indicator_active {
+      opacity: 1;
+    }
+  }
+  /*
+  .transitionPrevDesc {
+    opacity: 0;
+    -webkit-clip-path: inset(49% 0 50% 0);
+    clip-path: inset(49% 0 50% 0);
+    -webkit-transform: scaleY(.7);
+    transform: scaleY(.7);
+
+    -webkit-transition: .5s ease-out;
+    -moz-transition: .5s ease-out;
+    -o-transition: .5s ease-out;
+    transition: .5s ease-out;
+    transition-timing-function: ease-out;
+    transition-duration: .5s;
+    transform-origin: left;
+    transition-property: all;
+
+    transition-delay: .8s;
+  }
+
+  .transitionNextDesc {
+    -webkit-clip-path: inset(0 0 0 0);
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    transform: none;
+  }
+  */
+
+  
+
+  .transitionPrevDesc {
+    opacity: 0;
+  }
+
+  .transitionNextDesc {
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 1;
+  }
+
+  .Carousel__item {
+    .d_i_b;
+    position: relative;
+    float: left;
+    width: 100%;
+    margin-right: -100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transition: -webkit-transform .6s ease-in-out;
+    transition: transform .6s ease-in-out;
+    transition: transform .6s ease-in-out,-webkit-transform .6s ease-in-out;
+
+    .Carousel__itemCapture {
+      position: absolute;
+      width: 14rem;
+      top: 1rem;
+      left: 3rem;
+      font-size: 1.2rem;
+      color: 'black';
+    }
+    .Carousel__itemImg {
+      .imgFluid;
+    }
+
+    -webkit-transition: 1s step-start;
+    -moz-transition: 1s step-start;
+    -o-transition: 1s step-start;
+    transition-duration: 1s;
+    transform-origin: right;
+    transition-property: all;
+    transition-timing-function: step-start;
+    transition-delay: 0s;
+  }
+  
+  .Carousel__controlPrev, .Carousel_controlNext {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 15%;
+    color: #fff;
+    text-align: center;
+    opacity: .5;
+    transition: opacity .15s ease;
+  }
+
+  .Carousel_controlPrevIcon, .Carousel_controlNextIcon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: no-repeat 50%/100% 100%;
+    i {
+      font-size: 2rem;
+    }
+  }
+
+  .Carousel__controlPrev {
+    left: 0;
+    .Carousel_controlPrevIcon {
+
+    }
+  }
+  
+  .Carousel_controlNext {
+    right: 1rem;
+    .Carousel_controlNextIcon {
+      
+    }
+  }
+
+
+
+
+
+
+} 
