@@ -24,5 +24,6 @@ export interface Action {
     readonly item?: any,
     readonly scrollInterval?: number,
     readonly scrollPeriodEnd?: number,
+    readonly pagination?: number,
     readonly getActionAsync?: Function,
   }

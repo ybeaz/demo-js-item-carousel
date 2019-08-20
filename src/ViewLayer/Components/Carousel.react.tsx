@@ -7,7 +7,7 @@ interface Props {
   readonly cid: string,
     // component id
   readonly prefix: string,
-    // For each prefix styles tree can be created in Dropdown.less file
+    // For each prefix styles tree can be created in Carousel.less file
   readonly isDisplayArrows: boolean,
     // Allows or bans right, left arrows for listing items
   readonly isDisplayIndicators: boolean,
@@ -19,11 +19,24 @@ interface Props {
   readonly listArr: any,
     /* Example
       listArr: [
-          {
-            capture: 'Los Angeles',
-            src: 'https://www.w3schools.com/bootstrap4/la.jpg',
-            active: true,
-          },
+        {
+          id: 0,
+          capture: 'New York',
+          src: 'https://www.w3schools.com/bootstrap4/ny.jpg',
+          active: true,
+        },
+        {
+          id: 1,
+          capture: 'Chicago',
+          src: 'https://www.w3schools.com/bootstrap4/chicago.jpg',
+          active: true,
+        },
+        {
+          id: 2,
+          capture: 'Los Angeles',
+          src: 'https://www.w3schools.com/bootstrap4/la.jpg',
+          active: true,
+        },
         ...
       ]
     */
@@ -32,6 +45,7 @@ interface Props {
   readonly scrollPeriodEnd: number,
     // Set the period withing the images will be changing in miliseconds
 }
+
 interface State {
   readonly listArr: any,
   readonly date: any,
@@ -53,17 +67,37 @@ export class Carousel extends React.PureComponent<Props, State> {
     autoCarouselInterval: 2000,
     scrollInterval: 500,
     scrollPeriodEnd: 1000,
+    listArr: [
+      {
+        id: 0,
+        capture: 'New York',
+        src: 'https://www.w3schools.com/bootstrap4/ny.jpg',
+        active: true,
+      },
+      {
+        id: 1,
+        capture: 'Chicago',
+        src: 'https://www.w3schools.com/bootstrap4/chicago.jpg',
+        active: true,
+      },
+      {
+        id: 2,
+        capture: 'Los Angeles',
+        src: 'https://www.w3schools.com/bootstrap4/la.jpg',
+        active: true,
+      },
+    ]
   }
 
   constructor(props: any) {
     super(props)
     const { listArr } = this.props
     const totimeZone: Date =	new Date()
-    //console.info('Carousel->constructor', { props: this.props })
+    // console.info('Carousel->constructor', { listArr, props: this.props })
     this.preventSwipeTwice = false
 
     this.state = {
-      listArr,
+      listArr: [],
       date: totimeZone,
     }
   }
@@ -83,27 +117,39 @@ export class Carousel extends React.PureComponent<Props, State> {
     }
   }
 
-  public indicators: Function = (listArr: any): JSX.Element => listArr.map((item: any, i: number) => {
-    const { active } = item
-    let itemClass: string = ''
-    if (active === true) {
-      itemClass += 'Carousel__indicator_active'
+  componentDidUpdate(prevProps: any, prevState: any){
+    // console.info('Carousel->componentDidUpdate() [0]', { prevProps })
+    const { listArr: listArrPrevProps } = prevProps
+    const { listArr } = this.props
+    const { listArr: listArrState } = this.state
+    if(JSON.stringify(listArrPrevProps) !== JSON.stringify(listArr)){
+      this.setState({ listArr })
+      // console.info('Carousel->componentDidUpdate() [5]', { listArr })
     }
+  }
 
-    const action: Interfaces.Action = {
-      type: 'clickIndicator',
-      item,
-    }
+  public indicators: Function = (listArr: any): JSX.Element =>
+    listArr.map((item: Object, i: number) => {
+      const { id, active } = item
+      let itemClass: string = ''
+      if (active === true) {
+        itemClass += 'Carousel__indicator_active'
+      }
 
-    // console.info('Carousel->carouselRender [3]', { id: item.id, item, pageItemClass, activeItem: activeItem })
-    return (
-      // tslint:disable-next-line: react-a11y-event-has-role
-      <li key={i} className={itemClass}
-        // tslint:disable-next-line: react-this-binding-issue
-        onClick={(e: any): void => this.handleEvents(e, action)}
-      />
-    )
-  })
+      const action: Interfaces.Action = {
+        type: 'clickIndicator',
+        item,
+      }
+
+      // console.info('Carousel->carouselRender [3]', { id: item.id, item, pageItemClass, activeItem: activeItem })
+      return (
+        // tslint:disable-next-line: react-a11y-event-has-role
+        <li key={id} className={itemClass}
+          // tslint:disable-next-line: react-this-binding-issue
+          onClick={(e: any): void => this.handleEvents(e, action)}
+        />
+      )
+    })
 
   public imgs: Function = (listArr: any) => listArr.map((item: any, i: number) => {
     const { capture, src, active } = item
@@ -148,14 +194,14 @@ export class Carousel extends React.PureComponent<Props, State> {
 
       case 'onTouchMove':
       {
-        // console.info( 'Dropdown->handleEvents() [1]', action)
+        // console.info( 'Carousel->handleEvents() [1]', action)
 
         if (this.preventSwipeTwice === false) {
           const { scrollInterval, scrollPeriodEnd } = action
           const actionNextItem: Interfaces.Action  = {
             type: 'nextItem',
           }
-          // console.info( 'Dropdown->handleEvents() [5]', { delay, action })
+          // console.info( 'Carousel->handleEvents() [5]', { delay, action })
           this.tickID	=	setInterval(() => this.handleEvents({}, actionNextItem), scrollInterval)
           this.preventSwipeTwice = !this.preventSwipeTwice
 
@@ -171,7 +217,7 @@ export class Carousel extends React.PureComponent<Props, State> {
 
       case 'onTouchStopMove':
       {
-        // console.info( 'Dropdown->handleEvents() [1]', action)
+        // console.info( 'Carousel->handleEvents() [1]', action)
         clearInterval(this.tickID);
         this.preventSwipeTwice = false
       }
@@ -179,7 +225,6 @@ export class Carousel extends React.PureComponent<Props, State> {
 
       case 'nextItem':
       {
-        // console.info( 'Dropdown->handleEvents() [1]', action)
         const index: number = listArr.map((item: any) => item.active)
           .indexOf(true)
         const { length } = listArr
@@ -195,13 +240,14 @@ export class Carousel extends React.PureComponent<Props, State> {
 
           return { ...item, active: activeNext }
         })
+        // console.info( 'Carousel->handleEvents() [1]', { listArrNext, listArr, indexNext, index, action })
         this.setState({ listArr: listArrNext })
       }
       break
 
       case 'prevItem':
       {
-        // console.info( 'Dropdown->handleEvents() [1]', action)
+        // console.info( 'Carousel->handleEvents() [1]', action)
         const index: number = listArr.map((item: any) => item.active)
           .indexOf(true)
         const { length } = listArr
@@ -224,11 +270,11 @@ export class Carousel extends React.PureComponent<Props, State> {
       case 'clickIndicator':
       {
         const { item } = action
-        const { capture } = item
+        const { capture, src } = item
 
         const listArrNext: any = listArr.map((item01: any, i: number) => {
           let activeNext: boolean = false
-          if (capture === item01.capture) {
+          if (src === item01.src) {
             activeNext = true
           }
 
@@ -291,7 +337,7 @@ export class Carousel extends React.PureComponent<Props, State> {
     // console.info('Carousel->render() [10]', { listArr })
 
     return (
-      <div id={cid} className={`carousel slide ${prefix}`}>
+      <div id={cid} className={`Carousel slide ${prefix}`}>
         { isDisplayIndicators ? (
           <ul className='Carousel__indicators'>
             {this.indicators(listArr)}
@@ -299,7 +345,7 @@ export class Carousel extends React.PureComponent<Props, State> {
         )
           : undefined
         }
-        <div className='carousel-inner'>
+        <div className='Carousel__inner'>
           <Swipeable { ...swipeConfig } >
             {this.imgs(listArr)}
           </ Swipeable>
@@ -308,16 +354,16 @@ export class Carousel extends React.PureComponent<Props, State> {
           ? (
             <div>
               <div className='Carousel__controlPrev'>
-                <span className='Carousel_controlPrevIcon'
+                <span className='Carousel__controlPrevIcon'
                 // tslint:disable-next-line: react-this-binding-issue
                   onClick={(e: any) => this.handleEvents(e, actionPrevItem)}
                 >
                   <i className='fas fa-chevron-left' />
                 </span>
               </div>
-              <div className='Carousel_controlNext'>
+              <div className='Carousel__controlNext'>
                 <span
-                  className='Carousel_controlNextIcon'
+                  className='Carousel__controlNextIcon'
                   onClick={(e: any) => this.handleEvents(e, actionNextItem)}
                 >
                   <i className='fas fa-chevron-right' />
