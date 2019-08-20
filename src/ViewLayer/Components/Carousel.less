@@ -1,7 +1,11 @@
 
-.CarouselDesc {
+.Carousel {
   .pos_r;
-  height: 11rem;
+  width: 40rem;
+  height: 25rem;
+  
+  .Carousel__inner {
+  }
 
   .Carousel__indicators {
     position: absolute;
@@ -113,7 +117,7 @@
     transition-delay: 0s;
   }
   
-  .Carousel__controlPrev, .Carousel_controlNext {
+  .Carousel__controlPrev, .Carousel__controlNext {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -131,7 +135,7 @@
     transition: opacity .15s ease;
   }
 
-  .Carousel_controlPrevIcon, .Carousel_controlNextIcon {
+  .Carousel__controlPrevIcon, .Carousel__controlNextIcon {
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -148,9 +152,9 @@
     }
   }
   
-  .Carousel_controlNext {
+  .Carousel__controlNext {
     right: 1rem;
-    .Carousel_controlNextIcon {
+    .Carousel__controlNextIcon {
       
     }
   }

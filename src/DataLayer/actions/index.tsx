@@ -23,4 +23,8 @@ export const getActionAsync: any = (type: string, stage: string, data: any): any
 
 // Get synchroneours actions
 // Template export const : any = (data: any): any => action(actionTypes., data)
+export const SET_CAROUSEL_IND: any = (data: any): any => action(actionTypes.SET_CAROUSEL_IND, data)
+export const SET_PAGE_IND: any = (data: any): any => action(actionTypes.SET_PAGE_IND, data)
+export const CLOSE_MODAL_IMG_SIZED: any = (data: any): any => action(actionTypes.CLOSE_MODAL_IMG_SIZED, data)
+export const OPEN_MODAL_IMG_SIZED: any = (data: any): any => action(actionTypes.OPEN_MODAL_IMG_SIZED, data)
 export const DISPATCH_ACTION: any = (data: any): any => action(actionTypes.DISPATCH_ACTION, data)
