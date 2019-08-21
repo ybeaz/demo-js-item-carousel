@@ -14,30 +14,36 @@
 
   .Modal__dialog {
     max-width: 25rem;
-    margin: 1.75rem auto;
+    margin: 10% auto;
     width: auto;
   }
     .Modal__content {
-      &:extend(.d_f, .f_d_c, .p_x_3_rem);
+      &:extend(.d_f);
       pointer-events: auto;
-      background-color: #fff;
-      background-clip: padding-box;
-      border: 1px solid rgba(0, 0, 0, 0.2);
+      justify-content: flex-end;
       border-radius: 0.3rem;
-      outline: 0;
+      text-align: left;
     }
 
+      .Modal__upperLeftCloseButton {
+        &:extend(.pos_a, .m_t_0p5_rem, .m_r_1_rem, .p_r_1_rem);
+        z-index: 10;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        i {
+          font-size: 1.5rem;
+          color: grey;
+          opacity: 0.6;
+        }
+      }
+
       .Modal__header {
-        &:extend(.p_x_0);
-        display: flex;
-        -ms-flex-align: start;
-        align-items: flex-start;
-        -ms-flex-pack: justify;
-        justify-content: space-between;
+        &:extend(.d_f, .pos_a, .p_l_0, .p_r_1_rem);
+        z-index: 10;
+        justify-content: end;
         border-top-left-radius: .3rem;
         border-top-right-radius: .3rem;
-        padding: 0rem;
-        padding-top: 1rem;
       }
 
         .Modal__headerColLeft {
@@ -71,8 +77,6 @@
           }
 
       .Modal__body {
-        &:extend(.p_x_0, .p_y_1_rem);
-        flex: 1 1 auto;
       }
 
         .Modal__bodyRow {
@@ -116,6 +120,34 @@
         .Modal__footerButton {
           &:extend(.p_x_0);
         }
+
+  .Modal__show {
+    &:extend(.d_f);
+    .Modal__upperLeftCloseButton {
+      -webkit-transition: 500ms ease-out;
+      -moz-transition: 500ms ease-out;
+      -o-transition: 500ms ease-out;
+      transform-origin: center;
+      transition-property: all;
+      transition-timing-function: ease-out;
+      transition-duration: 500ms;
+      transition-delay: 500ms;
+    }
+  }
+  .Modal__hide {
+    &:extend(.d_n);
+    .Modal__upperLeftCloseButton {
+      -webkit-transition: 100ms ease-out;
+      -moz-transition: 100ms ease-out;
+      -o-transition: 100ms ease-out;
+      transform-origin: center;
+      transition-property: all;
+      transition-timing-function: ease-out;
+      transition-duration: 100ms;
+      transition-delay: 100ms;
+    }
+  }
+
 
   @media @large {
 

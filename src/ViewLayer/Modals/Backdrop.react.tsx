@@ -9,6 +9,7 @@ interface Props {
 
 const defaultProps: Props = {
   sid: '',
+  reduxState: {},
 }
 
 const BackdropModal: React.SFC<Props> = (props: Props): JSX.Element => {

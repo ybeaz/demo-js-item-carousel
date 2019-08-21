@@ -3,7 +3,8 @@
   &:extend(.p_l_0, .w_f_c);
 
   .Pagination__list {
-    &:extend(.d_f, .p_l_0);
+    &:extend(.d_f, .p_l_0, .p_t_0p5_rem);
+
     list-style-type: none;
   }
 
@@ -21,7 +22,10 @@
     .Pagination__link;
     .Pagination__link_number;
     border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
+    border-bottom-left-radius: 4px;    
+    i {
+      color: grey;
+    }
   }
 
   .Pagination__link {
@@ -48,6 +52,9 @@
     .Pagination__link_number;
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
+    i {
+      color: grey;
+    }
   }
 
   .Pagination__thumbnail {
@@ -63,6 +70,10 @@
     &:extend(.p_l_2_px);
   }
 
+  .Pagination__active {
+    border-bottom-color: grey;
+    border-bottom-style: inset;
+  }
 
   @media @large {
 
@@ -74,7 +85,10 @@
   
   }
   @media @phone, @phone-strict {
-
+    .Pagination__list {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
   }
 
 }
