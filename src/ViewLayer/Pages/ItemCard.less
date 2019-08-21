@@ -1,0 +1,112 @@
+
+.ItemCard {
+  &:extend(.pos_r);
+
+  @media @large {
+
+  }
+  @media @desktop, @desktop-strict {
+  
+  }
+  @media @tablet, @tablet-strict {
+  
+  }
+  @media @phone, @phone-strict {
+    .ItemCard__images {
+      max-width: 99%;
+    }
+  }
+}
+  .ItemCard__name_wrapper {
+    &:extend(.pos_a, .w_100, .p_y_0p5_rem);
+    background: rgba(250,250,250,0.8);
+  }
+    .ItemCard__name {
+      &:extend(.p_l_0p5_rem);
+    }
+
+    .ItemCard__images {
+      cursor: pointer;
+    }
+    
+    .ItemCard__priceRange {
+      &:extend(.d_f, .pos_a);
+      background-color: gray;
+      padding: 0.2rem 0.3rem;
+      color: #fff;
+      bottom: 0.5rem;
+      left: 0.5rem;
+    }
+      .ItemCard__priceRange_regular_high {
+
+      }
+
+      .ItemCard__priceRange_regular_low {
+
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.Face {
+}
+  .Face__faChevronDown {
+    &:extend(.d_f, .f_d_i, .j_c_e, .pos_a);
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    width: inherit;
+    bottom: 2rem;
+    color: 'black';
+    width: auto;
+    position: absolute;
+    right: 5%;
+  }
+
+    .Face__linkfaChevronDown {
+      &:extend(.cur_p);
+      color: 'grey';
+    }
+
+      .Face__arrowFirst, .Face__arrowSecond {
+      }
+      
+      .Face__arrowSecond {
+        margin-top: -0.5rem;
+      }
+
+        .Face__arrowIcon {
+          &:extend(.f_s_2_rem);
+        }
+
+  @media @large {
+
+  }
+  @media @desktop, @desktop-strict {
+  
+  }
+  @media @tablet, @tablet-strict {
+  
+  }
+  @media @phone, @phone-strict {
+  
+    main > div > div.row {
+      margin-right: 0;
+    }
+
+    .Face__faChevronDown {
+      .d_n;
+    }
+  }

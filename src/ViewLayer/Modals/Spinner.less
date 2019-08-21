@@ -1,0 +1,54 @@
+
+.Spinner {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 15rem;
+  z-index: 1050;
+  width: 100vw;
+
+  @media @large {
+
+  }
+  @media @desktop, @desktop-strict {
+
+  }
+  @media @tablet, @tablet-strict {
+
+  }
+  @media @phone, @phone-strict {
+  
+  }
+}
+
+.ModalBackdrop__hide {
+  z-index: -10;
+  opacity: 0;
+  -webkit-transition: 500ms ease-out;
+  -moz-transition: 500ms ease-out;
+  -o-transition: 500ms ease-out;
+  transform-origin: center;
+  transition-property: all;
+  transition-timing-function: ease-out;
+  transition-duration: 500ms;
+  transition-delay: 500ms;
+}
+
+.ModalBackdrop__show {
+  z-index: 1;
+  opacity: 0.5;
+
+  -webkit-transition: 1ms ease-out;
+  -moz-transition: 1ms ease-out;
+  -o-transition: 1ms ease-out;
+  transform-origin: center;
+  transition-property: all;
+  transition-timing-function: ease-out;
+  transition-duration: 1ms;
+  transition-delay: 1ms;
+}
+
+.ModalBackdrop_FarewellDev.ModalBackdrop__show {
+  opacity: 0.9;
+  background-color: darkolivegreen;
+}
