@@ -8,9 +8,11 @@ interface Props {
     // component id
   readonly prefix: string,
     // For each prefix styles tree can be created in Carousel.less file
-  readonly isDisplayArrows: boolean,
+  readonly isCaptureDisplayed: boolean,
+    // Allows or forbids displaing capture with images
+  readonly isArrowDisplayed: boolean,
     // Allows or bans right, left arrows for listing items
-  readonly isDisplayIndicators: boolean,
+  readonly isIndicatorDisplayed: boolean,
     // Allows or bans underscore indicators for listing items
   readonly isAutoCarousel: any,
     // If it equals number, than it works with number delay automatically
@@ -61,8 +63,9 @@ export class Carousel extends React.PureComponent<Props, State> {
   public static defaultProps: any = {
     cid: '',
     prefix: '',
-    isDisplayArrows: true,
-    isDisplayIndicators: true,
+    isCaptureDisplayed: true,
+    isArrowDisplayed: true,
+    isIndicatorDisplayed: true,
     isAutoCarousel: false,
     autoCarouselInterval: 2000,
     scrollInterval: 500,
@@ -129,11 +132,11 @@ export class Carousel extends React.PureComponent<Props, State> {
   }
 
   public indicators: Function = (listArr: any): JSX.Element =>
-    listArr.map((item: Object, i: number) => {
+    listArr.map((item: any, i: number) => {
       const { id, active } = item
-      let itemClass: string = ''
+      let itemClass: string = 'Carousel__indicator'
       if (active === true) {
-        itemClass += 'Carousel__indicator_active'
+        itemClass += ' Carousel__indicator_active'
       }
 
       const action: Interfaces.Action = {
@@ -144,14 +147,15 @@ export class Carousel extends React.PureComponent<Props, State> {
       // console.info('Carousel->carouselRender [3]', { id: item.id, item, pageItemClass, activeItem: activeItem })
       return (
         // tslint:disable-next-line: react-a11y-event-has-role
-        <li key={id} className={itemClass}
+        <div key={id} className={itemClass}
           // tslint:disable-next-line: react-this-binding-issue
           onClick={(e: any): void => this.handleEvents(e, action)}
-        />
+        ></div>
       )
     })
 
   public imgs: Function = (listArr: any) => listArr.map((item: any, i: number) => {
+    const { isCaptureDisplayed } = this.props
     const { capture, src, active } = item
     let itemClass: string = 'carousel-item Carousel__item transitionPrevDesc'
     if (active === true) {
@@ -164,9 +168,11 @@ export class Carousel extends React.PureComponent<Props, State> {
         key={i}
         className={itemClass}
       >
-        <div className='Carousel__itemCapture'>
+        {isCaptureDisplayed ? <div className='Carousel__itemCapture'>
           {capture}
         </div>
+        : null
+        }
         <img
           src={src}
           className='Carousel__itemImg'
@@ -297,8 +303,8 @@ export class Carousel extends React.PureComponent<Props, State> {
     const {
       cid,
       prefix,
-      isDisplayArrows,
-      isDisplayIndicators,
+      isArrowDisplayed,
+      isIndicatorDisplayed,
       scrollInterval,
       scrollPeriodEnd,
     } = this.props
@@ -338,10 +344,10 @@ export class Carousel extends React.PureComponent<Props, State> {
 
     return (
       <div id={cid} className={`Carousel slide ${prefix}`}>
-        { isDisplayIndicators ? (
-          <ul className='Carousel__indicators'>
+        { isIndicatorDisplayed ? (
+          <div className='Carousel__indicators'>
             {this.indicators(listArr)}
-          </ul>
+          </div>
         )
           : undefined
         }
@@ -350,7 +356,7 @@ export class Carousel extends React.PureComponent<Props, State> {
             {this.imgs(listArr)}
           </ Swipeable>
         </div>
-        { isDisplayArrows
+        { isArrowDisplayed
           ? (
             <div>
               <div className='Carousel__controlPrev'>

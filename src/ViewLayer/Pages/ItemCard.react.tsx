@@ -9,8 +9,8 @@ import { PictureSized } from '../Modals/PictureSized.react'
 import { any } from 'prop-types';
 
 interface Props {
-  readonly reduxState: any,
-  readonly handleActions: Function,
+  readonly reduxState?: any,
+  readonly handleActions?: Function,
 }
 interface State {
 }
@@ -21,8 +21,6 @@ class ItemCardPage extends React.PureComponent<Props, State> {
 
   constructor(props: any) {
     super(props)
-    this.state = {
-    }
   }
 
   componentWillMount(){
@@ -40,26 +38,32 @@ class ItemCardPage extends React.PureComponent<Props, State> {
     // console.info(`ItemCard->getItemCard() [5]`, { pagination, carousel, props: this.props })
 
     const { groups } = treeData
-    const { name, images, priceRange } = groups ? groups[pagination] : {}
+    const { name = '', images = [], priceRange = {} } = groups ? groups[pagination] : {}
     const { alt = '', rel = '', width = 0, href = '', height = 0 } = groups ? images[carousel] : {}
     const { regular = {} } = groups ? priceRange : {}
     const { high = 0, low = 0 } = groups ? regular : {}
 
     return <div className='ItemCard'>
-      <div className='ItemCard__name'>{name}</div>
+      <div className='ItemCard__name_wrapper'>
+        <div className='ItemCard__name'>
+          {name}
+        </div>
+      </div>
       <img
         className='ItemCard__images' src={href}
         width={width} height={height} alt={alt}
         onClick={e => this.handleEvents(e, {type: 'openModalImgSized'})}
       />
-      <div className='ItemCard__priceRange_regular_high'>{high}</div>
-      <div className='ItemCard__priceRange_regular_low'>{low}</div>
+      <div className='ItemCard__priceRange'>
+        <div className='ItemCard__priceRange_regular_high'>${high}-</div>
+        <div className='ItemCard__priceRange_regular_low'>${low}</div>
+      </div>
     </div>
   }
 
   public getDisplayClass: Function = (status: boolean): string => {
 
-    let displayClass = 'd_i_f'
+    let displayClass = 'd_f'
     if (status) {
       displayClass = 'd_n'
     }
@@ -152,7 +156,7 @@ class ItemCardPage extends React.PureComponent<Props, State> {
     const pictureSizedProps: any = { listArr: pictureSizedSrc }
 
     const paginationItemsSrc = this.getPaginationItemsSrc(treeData)
-    const paginationProps: any = { itemsSrc: paginationItemsSrc }
+    const paginationProps: any = { itemsSrc: paginationItemsSrc, activeItem: pagination }
 
     const displayClass = this.getDisplayClass(display)
     

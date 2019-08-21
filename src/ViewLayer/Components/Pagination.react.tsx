@@ -33,7 +33,7 @@ interface Props {
   readonly type: 'number',
     // Type: 'number', if not then 'thumbnail'
   readonly activeItem: number,
-    // Serial number of thee active item
+    // Serial number of the active item
   readonly handleActions: Function,
 }
 interface State {
@@ -66,43 +66,47 @@ export class PaginationComp extends React.Component<Props, State> {
   }
 
   paginationRender: Function = (
-    type: string, source: any, activeItem: number,
-    handleEvents: Function ): JSX.Element => {
+    type: string, source: any, activeItem: number
+    ): JSX.Element => {
     const lineHeight = (type === 'number') ? '' : 'Pagination__lineHigher'
     const padding = (type === 'number') ? '' : 'Pagination__padding'
-    let itemClass = 'Pagination__item'
     const items = source.map(( item: any ) => {
       const { id, src } = item
-      if (item.id === activeItem) {
-        itemClass += ' active'
+      let itemClass = 'Pagination__item'
+      if (id === activeItem) {
+        itemClass += ' Pagination__active'
       }
-      // console.info('MenuContent->paginationRender', { lineHeight, item })
-      return <li key={id} className={`${itemClass} ${padding}`}>
+      console.info('MenuContent->paginationRender', { id, activeItem, item })
+      return <div key={id} className={`${itemClass} ${padding}`}>
         {type === 'number' ? 
           <a className='Pagination__link_number' href="#"
-            onClick={ e => handleEvents( e, 'clickItem', item )}>
+            onClick={ e => this.handleEvents( e, 'clickItem', item )}>
             id + 1
           </a>
           : <a className='Pagination__link_thumbnail' href="#"
-            onClick={ e => this.handleEvents( e, {type: 'clickItem', item})}>
+              onClick={ e => this.handleEvents( e, {type: 'clickItem', item})}>
               <img src={src} className='Pagination__thumbnail' />
           </a>
         }
-      </li>
+      </div>
     })
 
     return (
-      <ul className='Pagination__list'>
-        <li className='Pagination__item_prev'>
+      <div className='Pagination__list'>
+        <div className='Pagination__item_prev'>
           <a className={`Pagination__link_prev ${lineHeight}`} href='#'
-            onClick={e => this.handleEvents( e, {type: 'prevItem'} )}>Prev</a>
-        </li>
+            onClick={e => this.handleEvents( e, {type: 'prevItem'} )}>
+            <i className='fas fa-chevron-left' />
+          </a>
+        </div>
         {items}
-        <li className={`Pagination__item_next ${padding}`}>
+        <div className={`Pagination__item_next ${padding}`}>
           <a className={`Pagination__link_next ${lineHeight}`} href='#'
-            onClick={e => this.handleEvents( e, {type: 'nextItem'})}>Next</a>
-        </li>
-      </ul>
+            onClick={e => this.handleEvents( e, {type: 'nextItem'})}>
+            <i className='fas fa-chevron-right' />
+          </a>
+        </div>
+      </div>
     )
   }
 
@@ -152,14 +156,14 @@ export class PaginationComp extends React.Component<Props, State> {
   }
 
   public render(): JSX.Element {
-    const { reduxState, type, itemsSrc, activeItem, handleEvents } = this.props
+    const { reduxState, type, itemsSrc, activeItem } = this.props
     const { modalWindows } = reduxState
     const { display } = modalWindows
-    // console.info('MenuContent->render()', { source })
+    console.info('MenuContent->render()', { activeItem, itemsSrc })
 
     return <div className='Pagination' >
       {display ? null
-      : this.paginationRender( type, itemsSrc, activeItem, handleEvents)
+      : this.paginationRender(type, itemsSrc, activeItem)
       }
     </div>
   }

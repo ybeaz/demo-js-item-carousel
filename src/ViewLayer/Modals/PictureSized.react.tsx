@@ -18,6 +18,9 @@ interface State {
 // eslint-disable-next-line react/prefer-stateless-function
 export class PictureSizedModal extends React.PureComponent<Props, State> {
   public static defaultProps = {
+    sid: '',
+    capture: '',
+    listArr: [],
   }
 
   constructor(props) {
@@ -26,9 +29,9 @@ export class PictureSizedModal extends React.PureComponent<Props, State> {
 
   public getDisplayClass: Function = (status: boolean): string => {
 
-    let displayClass = 'd_n'
+    let displayClass = 'Modal__hide'
     if (status) {
-      displayClass = 'd_i_f'
+      displayClass = 'Modal__show'
     }
 
     return displayClass
@@ -43,14 +46,21 @@ export class PictureSizedModal extends React.PureComponent<Props, State> {
     const modalClass = this.getDisplayClass(display)
     const action = { type: 'CLOSE_MODAL_IMG_SIZED' }
 
-    const carouselProps: any = { listArr }
+    const carouselProps: any = { listArr, isCaptureDisplayed: false }
 
     // console.info('PictureSized [10]', { carouselProps, props: this.props })
 
     return (
       <div className={`Modal Modal_${sid} ${modalClass}`}>
         <div className='Modal__dialog'>
-          <div className='modal__content'>
+          <div className='Modal__content'>
+            <div
+              className='Modal__upperLeftCloseButton'
+              onClickCapture={(e: React.FormEvent<HTMLDivElement>) =>
+                handleActions(e, action)}
+            >
+              <i className='fas fa-times' />
+            </div>
 
             {/* <!-- Modal Header --> */}
             <div className='Modal__header'>
@@ -59,14 +69,6 @@ export class PictureSizedModal extends React.PureComponent<Props, State> {
                   {'capture'}
                 </h4>
               */}
-              <button
-                type='button'
-                className='close Modal__upperLeftCloseButton'
-                onClickCapture={(e: React.FormEvent<HTMLButtonElement>) =>
-                  handleActions(e, action)}
-              >
-                &times;
-              </button>
             </div>
             
             {/* <!-- Modal body --> */}
