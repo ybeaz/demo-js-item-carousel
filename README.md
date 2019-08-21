@@ -2,7 +2,7 @@
 
 
 ## Link to a working example
-[GitHub](https://r1.userto.com/demo-js-item-carousel.html/)
+[JS-Item(s)-Pagination-Carousel](https://r1.userto.com/demo-js-item-carousel.html/)
 
 
 ## Used Tech Stack
