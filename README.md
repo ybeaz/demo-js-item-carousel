@@ -9,7 +9,7 @@
 * JS Frameworks: ReactJS, Redux, React-router, React-saga, Typescript, ECMAScript6 
 * CSS Preprocessor: Less, CSS flexbox
 * Version Control/Git: git, github.com
-* Responsive Design: tested on Desctop, GalaxyS5, IPhone6/7/8
+* Responsive Design: tested on desktop enviroment (Chrome, Firefox), GalaxyS5, IPhone6/7/8
 * Build and automation Tools: Webpack
 * Unit testing: Jest, Enzyme (not included)
 * Lints: eslint, tslint
@@ -20,7 +20,7 @@
 ## Task Description
 Using the provided json file, given an input of products, design a page that:
 * Consumes the JSON of products
-* Builds the product details page with all products                                                     
+* Builds the product details page with all products
 * Displays the product details, including price, product name and the main hero image
 * Interacts intuitively; if you click on the image, you should see an overlay with a carousal of all thumbnail images
 

@@ -76,7 +76,7 @@ export class PaginationComp extends React.Component<Props, State> {
       if (id === activeItem) {
         itemClass += ' Pagination__active'
       }
-      console.info('MenuContent->paginationRender', { id, activeItem, item })
+      // console.info('Pagination->paginationRender', { id, activeItem, item })
       return <div key={id} className={`${itemClass} ${padding}`}>
         {type === 'number' ? 
           <a className='Pagination__link_number' href="#"
@@ -159,7 +159,7 @@ export class PaginationComp extends React.Component<Props, State> {
     const { reduxState, type, itemsSrc, activeItem } = this.props
     const { modalWindows } = reduxState
     const { display } = modalWindows
-    console.info('MenuContent->render()', { activeItem, itemsSrc })
+    // console.info('Pagination->render()', { activeItem, itemsSrc })
 
     return <div className='Pagination' >
       {display ? null
