@@ -12,7 +12,6 @@ function* getItemData(payload) {
 
   try {
 
-    fetchGet(endpoint, payloadNext)
     const response = yield fetchGet(endpoint, payloadNext)
     // console.info('getItemData [5]', { response, endpoint })
 

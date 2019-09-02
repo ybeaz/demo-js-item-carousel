@@ -66,7 +66,7 @@
     "webpack-merge": "^4.2.1"
   },
   "scripts": {
-    "start": "opn http://127.0.0.1:3420 & webpack-dev-server --config webpack.dev.js --color",
+    "start": "opn http://127.0.0.1:3420/demo-js-item-carousel.html/ & webpack-dev-server --config webpack.dev.js --color",
     "dev": "webpack-dev-server --config webpack.dev.js --color",
     "build": "webpack -p --config webpack.prod.js",
     "jest": "jest",
