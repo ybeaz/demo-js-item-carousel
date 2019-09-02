@@ -23,11 +23,11 @@ class ItemCardPage extends React.PureComponent<Props, State> {
     super(props)
   }
 
-  componentWillMount(){
+  componentDidMount(){
     const action: Interfaces.Action = {
       type: 'getTreeData',
     }
-    // console.info('Analytics02->componentDidUpdate', { analytics })
+    // console.info('Analytics02->componentDidUpdate', { action })
     this.handleEvents({}, action)
   }
 

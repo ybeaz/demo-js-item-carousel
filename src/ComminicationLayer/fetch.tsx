@@ -1,7 +1,7 @@
 import * as serviceFunc from '../Shared/serviceFunc'
 
 export const fetchPost: Function = (endpoint: string, payload: any): any => {
-  // console.info('fetch.js->fetchPost [5]', { endpointPayload, payload })
+  // console.info('fetch.js->fetchPost [0]', { endpoint, payload })
 
   return fetch(endpoint, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
