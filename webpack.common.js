@@ -141,7 +141,6 @@ module.exports = {
     new webpack.ProvidePlugin({
       'React': 'react', 'react-dom': 'ReactDOM',
     }),
-    new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.HashedModuleIdsPlugin({
       hashFunction: 'sha256',
@@ -183,7 +182,6 @@ module.exports = {
   optimization: {
     namedModules: false,
     namedChunks: false,
-    nodeEnv: 'production',
     flagIncludedChunks: true,
     occurrenceOrder: true,
     sideEffects: true,

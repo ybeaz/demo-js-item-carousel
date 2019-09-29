@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import * as Interfaces from '../../Shared/interfaces'
 import { CommonContainer } from '../Containers/CommonContainer.react'
@@ -15,24 +15,27 @@ interface Props {
 interface State {
 }
 
-const defaultProps: Props = {}
+class ItemCardPage extends React.PureComponent<Props, State> {
+  public static defaultProps: any = {
+  }
 
-const ItemCardPage: React.SFC<Props> = (inputProps: Props): JSX.Element => {
-  const props = { ...defaultProps, ...inputProps }
+  constructor(props: any) {
+    super(props)
+  }
 
-  useEffect(() => {
+  componentDidMount(){
     const action: Interfaces.Action = {
       type: 'getTreeData',
     }
     // console.info('Analytics02->componentDidUpdate', { action })
-    handleEvents({}, action)
-  }, [])
+    this.handleEvents({}, action)
+  }
 
-  const getItemCard: Function = (): JSX.Element => {
-    const { reduxState } = props
+  getItemCard: Function = (): JSX.Element => {
+    const { reduxState } = this.props
     const { treeData, indexCollection } = reduxState
     const { pagination, carousel } = indexCollection
-    // console.info(`ItemCard->getItemCard() [5]`, { pagination, carousel, props })
+    // console.info(`ItemCard->getItemCard() [5]`, { pagination, carousel, props: this.props })
 
     const { groups } = treeData
     const { name = '', images = [], priceRange = {} } = groups ? groups[pagination] : {}
@@ -49,7 +52,7 @@ const ItemCardPage: React.SFC<Props> = (inputProps: Props): JSX.Element => {
       <img
         className='ItemCard__images' src={href}
         width={width} height={height} alt={alt}
-        onClick={e => handleEvents(e, {type: 'openModalImgSized'})}
+        onClick={e => this.handleEvents(e, {type: 'openModalImgSized'})}
       />
       <div className='ItemCard__priceRange'>
         <div className='ItemCard__priceRange_regular_high'>${high}-</div>
@@ -58,7 +61,7 @@ const ItemCardPage: React.SFC<Props> = (inputProps: Props): JSX.Element => {
     </div>
   }
 
-  const getDisplayClass: Function = (status: boolean): string => {
+  public getDisplayClass: Function = (status: boolean): string => {
 
     let displayClass = 'd_f'
     if (status) {
@@ -68,7 +71,7 @@ const ItemCardPage: React.SFC<Props> = (inputProps: Props): JSX.Element => {
     return displayClass
   }
 
-  const getPaginationItemsSrc: Function = (treeData: any): any => {
+  public getPaginationItemsSrc: Function = (treeData: any): any => {
     let outcome = []
     const { groups } = treeData
 
@@ -87,7 +90,7 @@ const ItemCardPage: React.SFC<Props> = (inputProps: Props): JSX.Element => {
     return outcome
   }
 
-  const getPictureSizedSrc: Function = (treeData: any, pagination: number, carousel: number): any => {
+  public getPictureSizedSrc: Function = (treeData: any, pagination: number, carousel: number): any => {
     let outcome = []
     const { groups } = treeData
 
@@ -110,10 +113,10 @@ const ItemCardPage: React.SFC<Props> = (inputProps: Props): JSX.Element => {
     return outcome
   }
 
-  const handleEvents: Function = (e: any, action: Interfaces.Action): void => {
-    const { handleActions } = props
+  public handleEvents: Function = (e: any, action: Interfaces.Action): void => {
+    const { handleActions } = this.props
     let data: any
-    // console.info(`ItemCard->handleEvents() type: ${action.type} [0]`, { handleActions, props, action, e })
+    // console.info(`ItemCard->handleEvents() type: ${action.type} [0]`, { handleActions, props: this.props, action, e })
 
     switch (action.type) {
 
@@ -122,8 +125,8 @@ const ItemCardPage: React.SFC<Props> = (inputProps: Props): JSX.Element => {
         const action: Interfaces.Action = {
           type: 'OPEN_MODAL_IMG_SIZED',
         }
-        props.handleActions({}, action)
-        // console.info(`ItemCard->handleEvents() type: ${action.type} [10]`, { props, action, e })
+        this.props.handleActions({}, action)
+        // console.info(`ItemCard->handleEvents() type: ${action.type} [10]`, { props: this.props, action, e })
       }
       break
 
@@ -132,7 +135,7 @@ const ItemCardPage: React.SFC<Props> = (inputProps: Props): JSX.Element => {
         const action: Interfaces.Action = {
           type: 'GET_TREE_DATA',
         }
-        props.handleActions({}, action)
+        this.props.handleActions({}, action)
       }
       break
 
@@ -142,30 +145,31 @@ const ItemCardPage: React.SFC<Props> = (inputProps: Props): JSX.Element => {
     }
   }
 
-  // render() => ...
-  const { reduxState } = props
-  const { treeData, modalWindows, indexCollection } = reduxState
-  const { pagination, carousel } = indexCollection
-  const { display } = modalWindows
-  const itemCardElem = getItemCard()
-  
-  const pictureSizedSrc = getPictureSizedSrc(treeData, pagination, carousel)
-  const pictureSizedProps: any = { listArr: pictureSizedSrc }
+  render(): JSX.Element {
+    const { reduxState } = this.props
+    const { treeData, modalWindows, indexCollection } = reduxState
+    const { pagination, carousel } = indexCollection
+    const { display } = modalWindows
+    const itemCardElem = this.getItemCard()
+    
+    const pictureSizedSrc = this.getPictureSizedSrc(treeData, pagination, carousel)
+    const pictureSizedProps: any = { listArr: pictureSizedSrc }
 
-  const paginationItemsSrc = getPaginationItemsSrc(treeData)
-  const paginationProps: any = { itemsSrc: paginationItemsSrc, activeItem: pagination }
+    const paginationItemsSrc = this.getPaginationItemsSrc(treeData)
+    const paginationProps: any = { itemsSrc: paginationItemsSrc, activeItem: pagination }
 
-  const displayClass = getDisplayClass(display)
-  
-  // console.info('ItemCard->render()', { pagination, pictureSizedProps, reduxState, props })
-  return <SectionWrapper>
-    <div className={displayClass}>
-      {itemCardElem}
-    </div>
-    <Pagination {...paginationProps} />
-    <Backdrop />
-    <PictureSized {...pictureSizedProps} />
-  </SectionWrapper>
+    const displayClass = this.getDisplayClass(display)
+    
+    // console.info('ItemCard->render()', { pagination, pictureSizedProps, reduxState, props: this.props, })
+    return <SectionWrapper>
+      <div className={displayClass}>
+        {itemCardElem}
+      </div>
+      <Pagination {...paginationProps} />
+      <Backdrop />
+      <PictureSized {...pictureSizedProps} />
+    </SectionWrapper>
+  }
 }
 
 export const ItemCard: any = CommonContainer(ItemCardPage)
