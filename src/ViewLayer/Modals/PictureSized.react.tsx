@@ -15,19 +15,22 @@ interface State {
 
 }
 
-// eslint-disable-next-line react/prefer-stateless-function
-export class PictureSizedModal extends React.PureComponent<Props, State> {
-  public static defaultProps = {
-    sid: '',
-    capture: '',
-    listArr: [],
-  }
+const defaultProps = {
+  sid: '',
+  capture: '',
+  listArr: [],
+}
 
-  constructor(props) {
-    super(props)
-  }
+export const PictureSizedModal: React.SFC<Props> = (inputProps: Props): JSX.Element => {
+  // ************ DEFAULT VALUES ************
+  const props = { ...defaultProps, ...inputProps }
 
-  public getDisplayClass: Function = (status: boolean): string => {
+
+  // ************ LIFECYCLE METHODS ************
+
+
+  // ************ FUNCTIONS ************
+  const getDisplayClass: Function = (status: boolean): string => {
 
     let displayClass = 'Modal__hide'
     if (status) {
@@ -37,65 +40,69 @@ export class PictureSizedModal extends React.PureComponent<Props, State> {
     return displayClass
   }
 
-  public render(): JSX.Element {
-    const {
-      reduxState, sid, capture, handleActions, listArr
-    } = this.props
-    const { modalWindows } = reduxState
-    const { display } = modalWindows
-    const modalClass = this.getDisplayClass(display)
-    const action = { type: 'CLOSE_MODAL_IMG_SIZED' }
+  // ************ EVENT HANDLERS ************
+  const handleEvents: Function = (e: any, action: any): void => {
 
-    const carouselProps: any = { listArr, isCaptureDisplayed: false }
+  }
 
-    // console.info('PictureSized [10]', { carouselProps, props: this.props })
+  // ************ RENDER SECTION ************
+  const {
+    reduxState, sid, capture, handleActions, listArr
+  } = props
+  const { modalWindows } = reduxState
+  const { display } = modalWindows
+  const modalClass = getDisplayClass(display)
+  const action = { type: 'CLOSE_MODAL_IMG_SIZED' }
 
-    return (
-      <div className={`Modal Modal_${sid} ${modalClass}`}>
-        <div className='Modal__dialog'>
-          <div className='Modal__content'>
-            <div
-              className='Modal__upperLeftCloseButton'
-              onClickCapture={(e: React.FormEvent<HTMLDivElement>) =>
-                handleActions(e, action)}
-            >
-              <i className='fas fa-times' />
-            </div>
+  const carouselProps: any = { listArr, isCaptureDisplayed: false }
 
-            {/* <!-- Modal Header --> */}
-            <div className='Modal__header'>
-              {/*
-                <h4 className='Modal__title'>
-                  {'capture'}
-                </h4>
-              */}
-            </div>
-            
-            {/* <!-- Modal body --> */}
-            <div className='Modal__body'>
-              <div className='Modal__message'>
-                <Carousel {...carouselProps} />
-              </div>
+  // console.info('PictureSized [10]', { carouselProps, props })
 
-            </div>
+  return (
+    <div className={`Modal Modal_${sid} ${modalClass}`}>
+      <div className='Modal__dialog'>
+        <div className='Modal__content'>
+          <div
+            className='Modal__upperLeftCloseButton'
+            onClickCapture={(e: React.FormEvent<HTMLDivElement>) =>
+              handleActions(e, action)}
+          >
+            <i className='fas fa-times' />
+          </div>
 
-            {/* <!-- Modal footer -->
-            <div className='Modal__footer'>
-              <button
-                type='button'
-                className='Modal__footerButton'
-                onClickCapture={(e: React.FormEvent<HTMLButtonElement>) =>
-                  handleActions(e, action)}
-              >
-                Close
-              </button>
-            </div>
+          {/* <!-- Modal Header --> */}
+          <div className='Modal__header'>
+            {/*
+              <h4 className='Modal__title'>
+                {'capture'}
+              </h4>
             */}
           </div>
+          
+          {/* <!-- Modal body --> */}
+          <div className='Modal__body'>
+            <div className='Modal__message'>
+              <Carousel {...carouselProps} />
+            </div>
+
+          </div>
+
+          {/* <!-- Modal footer -->
+          <div className='Modal__footer'>
+            <button
+              type='button'
+              className='Modal__footerButton'
+              onClickCapture={(e: React.FormEvent<HTMLButtonElement>) =>
+                handleActions(e, action)}
+            >
+              Close
+            </button>
+          </div>
+          */}
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export const PictureSized: any = CommonContainer(PictureSizedModal)

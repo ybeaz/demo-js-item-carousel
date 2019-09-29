@@ -1,3 +1,5 @@
+
+const webpack = require('webpack')
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 //https://stackoverflow.com/questions/49053215/webpack-4-how-to-configure-minimize
@@ -6,6 +8,9 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 module.exports = merge(common, {
   mode: 'production',
   devtool: 'source-map',
+  plugins: [
+    new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }),
+  ],
   optimization: {
     namedModules: false,
     namedChunks: false,
