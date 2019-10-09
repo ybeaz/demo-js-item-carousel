@@ -3,6 +3,9 @@ module.exports = {
     "airbnb",
     "plugin:react/recommended"
   ],
+  "plugins": [
+    "eslint-plugin-jsx-a11y"
+  ],
 	"parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 6,

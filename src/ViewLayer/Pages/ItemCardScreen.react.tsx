@@ -3,23 +3,28 @@ import React, { useEffect } from 'react'
 import * as Interfaces from '../../Shared/interfaces'
 import { CommonContainer } from '../Containers/CommonContainer.react'
 import { SectionWrapper } from '../Components/SectionWrapper.react'
+import NavigationHorisontal from '../Components/NavigationHorisontal.react'
 import { Pagination } from '../Components/Pagination.react'
 import { Backdrop } from '../Modals/Backdrop.react'
 import { PictureSized } from '../Modals/PictureSized.react'
-import { any } from 'prop-types';
+import ItemCard from '../Components/ItemCard.react'
+
+import './ItemCardScreen.less'
 
 interface Props {
-  readonly reduxState?: any,
-  readonly handleActions?: Function,
+  readonly reduxState: any,
+  readonly handleActions: Function,
 }
 interface State {
 }
 
 const defaultProps: Props = {}
 
-const ItemCardPage: React.SFC<Props> = (inputProps: Props): JSX.Element => {
+const ItemCardScreen_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
+  // ************ DEFAULT VALUES ************
   const props = { ...defaultProps, ...inputProps }
 
+  // ************ LIFECYCLE METHODS ************
   useEffect(() => {
     const action: Interfaces.Action = {
       type: 'getTreeData',
@@ -28,36 +33,7 @@ const ItemCardPage: React.SFC<Props> = (inputProps: Props): JSX.Element => {
     handleEvents({}, action)
   }, [])
 
-  const getItemCard: Function = (): JSX.Element => {
-    const { reduxState } = props
-    const { treeData, indexCollection } = reduxState
-    const { pagination, carousel } = indexCollection
-    // console.info(`ItemCard->getItemCard() [5]`, { pagination, carousel, props })
-
-    const { groups } = treeData
-    const { name = '', images = [], priceRange = {} } = groups ? groups[pagination] : {}
-    const { alt = '', rel = '', width = 0, href = '', height = 0 } = groups ? images[carousel] : {}
-    const { regular = {} } = groups ? priceRange : {}
-    const { high = 0, low = 0 } = groups ? regular : {}
-
-    return <div className='ItemCard'>
-      <div className='ItemCard__name_wrapper'>
-        <div className='ItemCard__name'>
-          {name}
-        </div>
-      </div>
-      <img
-        className='ItemCard__images' src={href}
-        width={width} height={height} alt={alt}
-        onClick={e => handleEvents(e, {type: 'openModalImgSized'})}
-      />
-      <div className='ItemCard__priceRange'>
-        <div className='ItemCard__priceRange_regular_high'>${high}-</div>
-        <div className='ItemCard__priceRange_regular_low'>${low}</div>
-      </div>
-    </div>
-  }
-
+  // ************ FUNCTIONS ************
   const getDisplayClass: Function = (status: boolean): string => {
 
     let displayClass = 'd_f'
@@ -110,6 +86,7 @@ const ItemCardPage: React.SFC<Props> = (inputProps: Props): JSX.Element => {
     return outcome
   }
 
+  // ************ EVENT HANDLERS ************
   const handleEvents: Function = (e: any, action: Interfaces.Action): void => {
     const { handleActions } = props
     let data: any
@@ -122,7 +99,7 @@ const ItemCardPage: React.SFC<Props> = (inputProps: Props): JSX.Element => {
         const action: Interfaces.Action = {
           type: 'OPEN_MODAL_IMG_SIZED',
         }
-        props.handleActions({}, action)
+        handleActions({}, action)
         // console.info(`ItemCard->handleEvents() type: ${action.type} [10]`, { props, action, e })
       }
       break
@@ -142,12 +119,21 @@ const ItemCardPage: React.SFC<Props> = (inputProps: Props): JSX.Element => {
     }
   }
 
-  // render() => ...
+  // ************ RENDER SECTION ************
   const { reduxState } = props
   const { treeData, modalWindows, indexCollection } = reduxState
   const { pagination, carousel } = indexCollection
   const { display } = modalWindows
-  const itemCardElem = getItemCard()
+
+  const { groups } = treeData
+  const { name = '', images = [], priceRange = {} } = groups ? groups[pagination] : {}
+  const { alt = '', rel = '', width = 0, href = '', height = 0 } = groups ? images[carousel] : {}
+  const { regular = {} } = groups ? priceRange : {}
+  const { high = 0, low = 0 } = groups ? regular : {}
+
+  const itemCardElemProps = {
+    handleEvents, name, images, priceRange, alt, rel, width, href, height, regular, high, low
+  }
   
   const pictureSizedSrc = getPictureSizedSrc(treeData, pagination, carousel)
   const pictureSizedProps: any = { listArr: pictureSizedSrc }
@@ -157,10 +143,14 @@ const ItemCardPage: React.SFC<Props> = (inputProps: Props): JSX.Element => {
 
   const displayClass = getDisplayClass(display)
   
-  // console.info('ItemCard->render()', { pagination, pictureSizedProps, reduxState, props })
-  return <SectionWrapper>
+  // console.info('ItemCard [R]', { itemCardElemProps, pagination, pictureSizedProps, reduxState, props })
+  return <SectionWrapper key={'0'}>
+    {displayClass === 'd_f' ?
+      <NavigationHorisontal />
+      : null
+    }
     <div className={displayClass}>
-      {itemCardElem}
+      <ItemCard {...itemCardElemProps} />
     </div>
     <Pagination {...paginationProps} />
     <Backdrop />
@@ -168,4 +158,4 @@ const ItemCardPage: React.SFC<Props> = (inputProps: Props): JSX.Element => {
   </SectionWrapper>
 }
 
-export const ItemCard: any = CommonContainer(ItemCardPage)
+export const ItemCardScreen: any = CommonContainer(ItemCardScreen_)

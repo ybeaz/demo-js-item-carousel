@@ -2,7 +2,8 @@ import React from 'react'
 
 import * as Interfaces from '../../Shared/interfaces'
 import { CommonContainer } from '../Containers/CommonContainer.react'
-import { ItemCard } from '../Pages/ItemCard.react';
+
+import './Pagination.less'
 
 interface Props {
   readonly reduxState?: any,

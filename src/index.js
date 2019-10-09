@@ -10,19 +10,22 @@ import './ViewLayer/CssStyles/index.less'
 import * as actions from './DataLayer/actions/index'
 import store from './DataLayer/store'
 import * as serviceFunc from './Shared/serviceFunc'
-import { ItemCard } from './ViewLayer/Pages/ItemCard.react'
+import { ItemCardScreen } from './ViewLayer/Pages/ItemCardScreen.react'
+import { ItemListScreen } from './ViewLayer/Pages/ItemListScreen.react'
 import { Error404Page } from './ViewLayer/Pages/Error404.react'
 
 const PAGES = {
-  ItemCard,
+  ItemCardScreen,
+  ItemListScreen,
 }
 
 const rootPart = 'demo-js-item-carousel.html'
 const { router } = {
   router: {
     routes: [
-      { path: '/', exact: true, page: 'ItemCard' },
-      { path: 'item0', exact: true, page: 'ItemCard' },
+      { path: '/', exact: true, page: 'ItemCardScreen' },
+      { path: 'item0', exact: true, page: 'ItemCardScreen' },
+      { path: 'ItemList', exact: true, page: 'ItemListScreen' },
     ],
     redirects: [
       { from: `/${rootPart}`, to: 'item0', exact: true },
@@ -70,11 +73,16 @@ const App = () => {
 
   // Section for store and data 
   // store.dispatch(actions.INIT_TREE_DATA({ treeData: {} }))
+  const from = '/'
+  const to = `/${rootPart}/ItemCard`
 
   return (
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
+          <Route exact path='/'>
+            <Redirect {...{ from, to }} />
+          </Route>
           {getRedirects()}
           {getRoutes()}
           <Route component={Error404Page} />

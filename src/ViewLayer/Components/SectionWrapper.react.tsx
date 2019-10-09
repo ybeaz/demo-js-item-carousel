@@ -1,5 +1,7 @@
 import React from 'react'
 
+import './SectionWrapper.less'
+
 interface Props {
   sid?: string,
   classStyle?: string,
