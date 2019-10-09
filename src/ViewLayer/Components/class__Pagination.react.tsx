@@ -2,7 +2,6 @@ import React from 'react'
 
 import * as Interfaces from '../../Shared/interfaces'
 import { CommonContainer } from '../Containers/CommonContainer.react'
-import { ItemCard } from '../Pages/ItemCard.react';
 
 interface Props {
   readonly reduxState: any,
@@ -39,7 +38,7 @@ interface Props {
 interface State {
 }
 
-export class PaginationComp_ extends React.Component<Props, State> {
+export class PaginationComp extends React.Component<Props, State> {
   public static defaultProps: any = {
     type: 'thumbnail',
     activeItem: 0,

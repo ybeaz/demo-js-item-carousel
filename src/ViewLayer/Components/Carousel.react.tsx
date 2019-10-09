@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Swipeable } from 'react-swipeable'
 
+import './Carousel.less'
+
 import * as Interfaces from '../../Shared/interfaces'
 
 interface Props {
@@ -61,7 +63,6 @@ export interface Carousel {
 
 // Remove
 const defaultProps: Props = {
-  cid: '',
   prefix: '',
   isCaptureDisplayed: true,
   isArrowDisplayed: true,
@@ -93,7 +94,7 @@ const defaultProps: Props = {
 }
 
 export const Carousel : React.SFC<Props> = (inputProps: Props): JSX.Element => {
-  const props =  {...defaultProps, ...inputProps }
+  const props = {...defaultProps, ...inputProps }
 
   // const { listArr: listArrProps } = props
   let tickID
