@@ -25,7 +25,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist/dist'),
     filename: '[name].min.js',
-    publicPath: '/',
+    publicPath: 'https://r1.userto.com/dist/JsItemCarousel/',
+    chunkFilename: '[id].chunk.js',
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.es6', 'less', 'css', 'config', 'variables', 'overrides'],

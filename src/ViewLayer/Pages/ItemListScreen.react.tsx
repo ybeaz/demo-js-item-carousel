@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import LazyLoad from 'react-lazyload'
+
 import { CommonContainer } from '../Containers/CommonContainer.react'
 import { SectionWrapper } from '../Components/SectionWrapper.react'
 import ItemCard from '../Components/ItemCard.react'
@@ -16,10 +18,13 @@ interface State {
   readonly stateTreeData: any,
 }
 
-const defaultProps: Props = {}
+const defaultProps: Props = {
+  reduxState: {},
+  handleActions: () => {},
+}
 
 const ItemListScreen_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
-  // ************ DEFAULT VALUES ************
+  // ************ DEFAULT VALUES ************ 
   const props = { ...defaultProps, ...inputProps }
   const { reduxState, handleActions } = props
   let { treeData } = reduxState
@@ -49,13 +54,18 @@ const ItemListScreen_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
   }
   // console.info('ItemList [F]', { groups, treeData, reduxState, props })
 
-  const getImageList: Function = (groups: any[]): JSX.Element => {
+  const getImageList: Function = (groups: any[]): JSX.Element[] => {
     
     const imagesArr: any[] = arrTransform(groups)
 
     return imagesArr.map((item: any, i: number) => {
       const itemCardElemProps = { handleEvents: () => {}, ...item}
-      return <ItemCard key={`${item.id}_${i}`} {...itemCardElemProps} />
+      return (
+        <LazyLoad key={`LazyLoad_${item.id}_${i}`} height={200} offset={100}>
+          <ItemCard key={`ItemCard_${item.id}_${i}`} {...itemCardElemProps} />
+        </LazyLoad>
+      )
+      
     })
   }
 
@@ -88,4 +98,4 @@ const ItemListScreen_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
   </SectionWrapper>
 }
 
-export const ItemListScreen: any = CommonContainer(ItemListScreen_)
+export default CommonContainer(ItemListScreen_)

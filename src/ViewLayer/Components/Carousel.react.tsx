@@ -63,6 +63,7 @@ export interface Carousel {
 
 // Remove
 const defaultProps: Props = {
+  cid: '',
   prefix: '',
   isCaptureDisplayed: true,
   isArrowDisplayed: true,

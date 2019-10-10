@@ -3,7 +3,7 @@ import React from 'react'
 interface Props {
 }
 
-const Error404: React.SFC<Props> = () => {
+const Error404: React.SFC<Props> = (): JSX.Element => {
 
   return (
     <div className='container'>
@@ -33,4 +33,4 @@ const Error404: React.SFC<Props> = () => {
 
 }
 
-export const Error404Page = Error404
+export default Error404
