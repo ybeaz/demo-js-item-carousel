@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+
+import React, { useEffect, Suspense } from 'react'
 
 import * as Interfaces from '../../Shared/interfaces'
 import { CommonContainer } from '../Containers/CommonContainer.react'
@@ -6,7 +7,9 @@ import { SectionWrapper } from '../Components/SectionWrapper.react'
 import NavigationHorisontal from '../Components/NavigationHorisontal.react'
 import { Pagination } from '../Components/Pagination.react'
 import { Backdrop } from '../Modals/Backdrop.react'
-import { PictureSized } from '../Modals/PictureSized.react'
+
+const PictureSized = React.lazy(() => import('../Modals/PictureSized.react'))
+// import PictureSized from '../Modals/PictureSized.react'
 import ItemCard from '../Components/ItemCard.react'
 
 import './ItemCardScreen.less'
@@ -18,7 +21,10 @@ interface Props {
 interface State {
 }
 
-const defaultProps: Props = {}
+const defaultProps: Props = {
+  reduxState: {},
+  handleActions: () => {},
+}
 
 const ItemCardScreen_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
   // ************ DEFAULT VALUES ************
@@ -152,10 +158,12 @@ const ItemCardScreen_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
     <div className={displayClass}>
       <ItemCard {...itemCardElemProps} />
     </div>
-    <Pagination {...paginationProps} />
-    <Backdrop />
-    <PictureSized {...pictureSizedProps} />
+    {<Pagination {...paginationProps} />}
+    <Suspense fallback={<span>I am working on it ...</span>}>
+      <Backdrop />
+      <PictureSized {...pictureSizedProps} />
+    </Suspense>
   </SectionWrapper>
 }
 
-export const ItemCardScreen: any = CommonContainer(ItemCardScreen_)
+export default CommonContainer(ItemCardScreen_)

@@ -1,5 +1,6 @@
-
 import React from 'react'
+import LazyLoad from 'react-lazyload'
+
 import './ItemCard.less'
 
 interface Props {
@@ -15,7 +16,7 @@ interface Props {
 
 const defaultProps: Props = {}
 
-const TemplatePureFunctional: React.SFC<Props> = (inputProps: Props): JSX.Element => {
+const ItemCard: React.SFC<Props> = (inputProps: Props): JSX.Element => {
   // ************ DEFAULT VALUES ************
   const props = { ...defaultProps, ...inputProps }
 
@@ -54,4 +55,4 @@ const TemplatePureFunctional: React.SFC<Props> = (inputProps: Props): JSX.Elemen
   </div>
 }
 
-export default TemplatePureFunctional
+export default ItemCard

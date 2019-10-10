@@ -21,7 +21,7 @@ const defaultProps = {
   listArr: [],
 }
 
-export const PictureSizedModal: React.SFC<Props> = (inputProps: Props): JSX.Element => {
+const PictureSizedModal_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
   // ************ DEFAULT VALUES ************
   const props = { ...defaultProps, ...inputProps }
 
@@ -105,4 +105,4 @@ export const PictureSizedModal: React.SFC<Props> = (inputProps: Props): JSX.Elem
   )
 }
 
-export const PictureSized: any = CommonContainer(PictureSizedModal)
+export default CommonContainer(PictureSizedModal_)

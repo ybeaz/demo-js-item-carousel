@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch, Redirect  } from 'react-router-dom'
 import { Provider } from 'react-redux'
@@ -10,9 +10,10 @@ import './ViewLayer/CssStyles/index.less'
 import * as actions from './DataLayer/actions/index'
 import store from './DataLayer/store'
 import * as serviceFunc from './Shared/serviceFunc'
-import { ItemCardScreen } from './ViewLayer/Pages/ItemCardScreen.react'
-import { ItemListScreen } from './ViewLayer/Pages/ItemListScreen.react'
-import { Error404Page } from './ViewLayer/Pages/Error404.react'
+
+const ItemCardScreen = React.lazy(() => import('./ViewLayer/Pages/ItemCardScreen.react'))
+const ItemListScreen = React.lazy(() => import('./ViewLayer/Pages/ItemListScreen.react'))
+const Error404Page = React.lazy(() => import('./ViewLayer/Pages/Error404.react'))
 
 const PAGES = {
   ItemCardScreen,
@@ -60,11 +61,14 @@ const getRoutes = () => routes
       <Route
         key={i}
         {...{ path, exact }}
-        component={() => <Page />}
+        render={() => (
+          <Suspense fallback={<span>I am working on it ...</span>}>
+            <Page />
+          </Suspense>
+        )}
       />
     )
   })
-
 
 const App = () => {
 
