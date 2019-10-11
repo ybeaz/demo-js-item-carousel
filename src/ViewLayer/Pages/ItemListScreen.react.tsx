@@ -98,15 +98,16 @@ const ItemListScreen_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
   const action = { type: 'action1'}
   const navHorisontalProps: any = { 
     navList: [
-      { capture: 'Item card', to: '/demo-js-item-carousel.html/item0', active: false },
-      { capture: 'Item list', to: '/demo-js-item-carousel.html/ItemList', active: true },
-    ],
+      { capture: 'Item card', to: '/demo-js-item-carousel.html/item0', type: 'reactRouterLink', classStyle: '', active: false },
+      { capture: 'Item list', to: '/demo-js-item-carousel.html/ItemList', type: 'reactRouterLink', classStyle: '', active: true },
+      { capture: 'Github link', to: 'https://github.com/ybeaz/demo-js-item-carousel', type: 'anchor', classStyle: 'NavHorizontal__a_github', active: false },
+     ],
   }
 
   return <SectionWrapper>
     {groups && !!groups.length ?
       <div className='ItemCardScreen'>
-        <Header>Item list screen</Header>
+        <Header>Demo: Item list screen</Header>
         <NavHorizontal {...navHorisontalProps} />
         <section className='ItemCardScreen__mainSection'>
         <Suspense fallback={<><Backdrop display /><Spinner display /></>}>

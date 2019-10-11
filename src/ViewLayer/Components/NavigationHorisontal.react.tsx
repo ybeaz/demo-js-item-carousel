@@ -26,13 +26,24 @@ const NavHorizontal: React.SFC<Props> = (inputProps: Props): JSX.Element => {
 
   const getItemList: Function = (arr: string[]): JSX.Element[] =>
     arr.map((item: any, i: number) => (
-      <li key={`NavHorizontal_li_${i}`} className='NavHorizontal__li'>
+      <li key={`NavHorizontal_li_${i}`}
+        className={`NavHorizontal__li ${item.classStyle}`}
+      >
+      { item.type === 'anchor' ?
+        <a className='NavHorizontal__a' href={item.to} target='blank'>
+          <div 
+            className={`NavHorizontal__capture ${serviceFunc.getNavActiveClass(item.active)}`}>
+            {item.capture}
+          </div>
+        </a>
+        :
         <Link to={item.to} className='NavHorizontal__a'>
           <div 
             className={`NavHorizontal__capture ${serviceFunc.getNavActiveClass(item.active)}`}>
             {item.capture}
           </div>
         </Link>
+      }
       </li>
     ))
 

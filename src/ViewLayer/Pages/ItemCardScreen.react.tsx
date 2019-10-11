@@ -148,8 +148,9 @@ const ItemCardScreen_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
   const paginationProps: any = { itemsSrc: paginationItemsSrc, activeItem: pagination }
   const navHorisontalProps: any = { 
     navList: [
-      { capture: 'Item card', to: '/demo-js-item-carousel.html/item0', active: true },
-      { capture: 'Item list', to: '/demo-js-item-carousel.html/ItemList', active: false },
+      { capture: 'Item card', to: '/demo-js-item-carousel.html/item0', type: 'reactRouterLink', classStyle: '', active: true },
+      { capture: 'Item list', to: '/demo-js-item-carousel.html/ItemList', type: 'reactRouterLink', classStyle: '', active: false },
+      { capture: 'Github link', to: 'https://github.com/ybeaz/demo-js-item-carousel', type: 'anchor', classStyle: 'NavHorizontal__a_github', active: false },
     ],
   }
   const displayClassSectionWrapper = serviceFunc.getDisplayClass(isImageLoaded)
@@ -161,7 +162,7 @@ const ItemCardScreen_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
       {displayClassItemCardScreen === 'd_f' ?
         <div className={`ItemCardScreen ${displayClassItemCardScreen}`}>
           <Suspense fallback={<><Backdrop display={true} /><Spinner display /></>}>
-            <Header>Item card screen</Header>
+            <Header>Demo: Item card screen</Header>
             <NavHorizontal {...navHorisontalProps} />
             <ItemCard {...itemCardElemProps} />
             <Pagination {...paginationProps} />
