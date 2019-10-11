@@ -1,12 +1,16 @@
 
-import React, { useEffect, Suspense } from 'react'
+import React, { useState, useEffect, Suspense, Fragment } from 'react'
 
 import * as Interfaces from '../../Shared/interfaces'
+import * as serviceFunc from '../../Shared/serviceFunc'
+
 import { CommonContainer } from '../Containers/CommonContainer.react'
 import { SectionWrapper } from '../Components/SectionWrapper.react'
-import NavigationHorisontal from '../Components/NavigationHorisontal.react'
-import { Pagination } from '../Components/Pagination.react'
-import { Backdrop } from '../Modals/Backdrop.react'
+import NavHorizontal from '../Components/NavigationHorisontal.react'
+import Pagination from '../Components/Pagination.react'
+import Backdrop from '../Modals/Backdrop.react'
+import Spinner from '../Modals/Spinner.react'
+import Header from '../Components/Header.react'
 
 const PictureSized = React.lazy(() => import('../Modals/PictureSized.react'))
 // import PictureSized from '../Modals/PictureSized.react'
@@ -19,6 +23,7 @@ interface Props {
   readonly handleActions: Function,
 }
 interface State {
+  readonly isImageLoaded: boolean,
 }
 
 const defaultProps: Props = {
@@ -31,6 +36,7 @@ const ItemCardScreen_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
   const props = { ...defaultProps, ...inputProps }
 
   // ************ LIFECYCLE METHODS ************
+  const [isImageLoaded, setIsImageLoaded] = useState(false)
   useEffect(() => {
     const action: Interfaces.Action = {
       type: 'getTreeData',
@@ -40,16 +46,6 @@ const ItemCardScreen_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
   }, [])
 
   // ************ FUNCTIONS ************
-  const getDisplayClass: Function = (status: boolean): string => {
-
-    let displayClass = 'd_f'
-    if (status) {
-      displayClass = 'd_n'
-    }
-
-    return displayClass
-  }
-
   const getPaginationItemsSrc: Function = (treeData: any): any => {
     let outcome = []
     const { groups } = treeData
@@ -100,13 +96,17 @@ const ItemCardScreen_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
 
     switch (action.type) {
 
+      case 'imageLoaded': {
+        setIsImageLoaded(true)
+      }
+      break
+
       case 'openModalImgSized':
       {
         const action: Interfaces.Action = {
           type: 'OPEN_MODAL_IMG_SIZED',
         }
         handleActions({}, action)
-        // console.info(`ItemCard->handleEvents() type: ${action.type} [10]`, { props, action, e })
       }
       break
 
@@ -146,21 +146,29 @@ const ItemCardScreen_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
 
   const paginationItemsSrc = getPaginationItemsSrc(treeData)
   const paginationProps: any = { itemsSrc: paginationItemsSrc, activeItem: pagination }
+  const navHorisontalProps: any = { 
+    navList: [
+      { capture: 'Item card', to: '/demo-js-item-carousel.html/item0', active: true },
+      { capture: 'Item list', to: '/demo-js-item-carousel.html/ItemList', active: false },
+    ],
+  }
+  const displayClassSectionWrapper = serviceFunc.getDisplayClass(isImageLoaded)
+  const displayClassItemCardScreen = serviceFunc.getRevDisplayClass(display)
 
-  const displayClass = getDisplayClass(display)
-  
-  // console.info('ItemCard [R]', { itemCardElemProps, pagination, pictureSizedProps, reduxState, props })
-  return <SectionWrapper key={'0'}>
-    {displayClass === 'd_f' ?
-      <NavigationHorisontal />
+  // console.info('ItemCardScreen [R]', { display, displayClassItemCardScreen, isImageLoaded })
+  return <SectionWrapper key={'0'} classStyle={displayClassSectionWrapper}>
+    {displayClassItemCardScreen === 'd_f' ?
+      <div className={`ItemCardScreen ${displayClassItemCardScreen}`}>
+        <Suspense fallback={<><Backdrop display={true} /><Spinner /></>}>
+          <Header>Item card screen</Header>
+          <NavHorizontal {...navHorisontalProps} />
+          <ItemCard {...itemCardElemProps} />
+          <Pagination {...paginationProps} />
+        </Suspense>
+      </div>
       : null
     }
-    <div className={displayClass}>
-      <ItemCard {...itemCardElemProps} />
-    </div>
-    {<Pagination {...paginationProps} />}
-    <Suspense fallback={<span>I am working on it ...</span>}>
-      <Backdrop />
+    <Suspense fallback={<><Backdrop display={true} /><Spinner /></>}>
       <PictureSized {...pictureSizedProps} />
     </Suspense>
   </SectionWrapper>

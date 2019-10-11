@@ -1,10 +1,10 @@
 import React from 'react'
-import LazyLoad from 'react-lazyload'
 
 import './ItemCard.less'
 
 interface Props {
   handleEvents?: Function,
+  classNameAdd?: string,
   name?: string,
   alt?: string,
   width?: number,
@@ -34,10 +34,10 @@ const ItemCard: React.SFC<Props> = (inputProps: Props): JSX.Element => {
 
   // ************ RENDER SECTION ************
   const {
-    handleEvents: handleEventsProps, name, alt, width, href, height, high, low
+    handleEvents: handleEventsProps, classNameAdd, name, alt, width, href, height, high, low
   } = props
 
-  return <div className='ItemCard'>
+  return <div className={`ItemCard ${classNameAdd}`} >
     <div className='ItemCard__name_wrapper'>
       <div className='ItemCard__name'>
         {name}
@@ -46,6 +46,7 @@ const ItemCard: React.SFC<Props> = (inputProps: Props): JSX.Element => {
     <img
       className='ItemCard__images' src={href}
       width={width} height={height} alt={alt}
+      onLoad={e => handleEventsProps(e, {type: 'imageLoaded'})}
       onClick={e => handleEventsProps(e, {type: 'openModalImgSized'})}
     />
     <div className='ItemCard__priceRange'>

@@ -172,5 +172,4 @@ const PaginationComp: React.SFC<Props> = (inputProps: Props): JSX.Element => {
 
 }
 
-
-export const Pagination: any = CommonContainer(PaginationComp)
+export default CommonContainer(PaginationComp)

@@ -1,11 +1,12 @@
 import React from 'react'
 
+import './Spinner.less'
 
 interface Props {
   readonly sid?: string,
 }
 
-export const Spinner: React.SFC<Props> = (props: Props): JSX.Element => {
+const Spinner: React.SFC<Props> = (props: Props): JSX.Element => {
   const { sid } = props
 
   return (
@@ -17,3 +18,5 @@ export const Spinner: React.SFC<Props> = (props: Props): JSX.Element => {
     </div>
   )
 }
+
+export default Spinner
