@@ -156,22 +156,25 @@ const ItemCardScreen_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
   const displayClassItemCardScreen = serviceFunc.getRevDisplayClass(display)
 
   // console.info('ItemCardScreen [R]', { display, displayClassItemCardScreen, isImageLoaded })
-  return <SectionWrapper key={'0'} classStyle={displayClassSectionWrapper}>
-    {displayClassItemCardScreen === 'd_f' ?
-      <div className={`ItemCardScreen ${displayClassItemCardScreen}`}>
-        <Suspense fallback={<><Backdrop display={true} /><Spinner /></>}>
-          <Header>Item card screen</Header>
-          <NavHorizontal {...navHorisontalProps} />
-          <ItemCard {...itemCardElemProps} />
-          <Pagination {...paginationProps} />
-        </Suspense>
-      </div>
-      : null
-    }
-    <Suspense fallback={<><Backdrop display={true} /><Spinner /></>}>
-      <PictureSized {...pictureSizedProps} />
-    </Suspense>
-  </SectionWrapper>
+  return <>
+    <SectionWrapper key={'0'} classStyle={displayClassSectionWrapper}>
+      {displayClassItemCardScreen === 'd_f' ?
+        <div className={`ItemCardScreen ${displayClassItemCardScreen}`}>
+          <Suspense fallback={<><Backdrop display={true} /><Spinner display /></>}>
+            <Header>Item card screen</Header>
+            <NavHorizontal {...navHorisontalProps} />
+            <ItemCard {...itemCardElemProps} />
+            <Pagination {...paginationProps} />
+          </Suspense>
+        </div>
+        : null
+      }
+      <Suspense fallback={<><Backdrop display={true} /><Spinner display /></>}>
+        <PictureSized {...pictureSizedProps} />
+      </Suspense>
+    </SectionWrapper>
+    <Backdrop display={!isImageLoaded} /><Spinner display={!isImageLoaded} />
+  </>
 }
 
 export default CommonContainer(ItemCardScreen_)
