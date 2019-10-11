@@ -18,19 +18,13 @@ const defaultProps: Props = {}
 
 const ItemCard: React.SFC<Props> = (inputProps: Props): JSX.Element => {
   // ************ DEFAULT VALUES ************
-  const props = { ...defaultProps, ...inputProps }
-
+  const props: Props = { ...defaultProps, ...inputProps }
 
   // ************ LIFECYCLE METHODS ************
 
-
   // ************ FUNCTIONS ************
 
-
   // ************ EVENT HANDLERS ************
-  const handleEvents: Function = (e: any, action: any): void => {
-
-  }
 
   // ************ RENDER SECTION ************
   const {

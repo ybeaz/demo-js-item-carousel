@@ -12,10 +12,17 @@ export const handleActions: Function = (e: object, action: Interfaces.Action): v
 
   switch (action.type) {
 
-    case 'SET_CAROUSEL_IND':
+    case 'GET_LOGIN_RES':
     {
       data = action.data
       // console.info(`handleActions.js type: ${action.type}`, { data, action, e })
+      actions.getActionAsync('GET_LOGIN_RES', 'REQUEST', data)
+    }
+    break
+
+    case 'SET_CAROUSEL_IND':
+    {
+      data = action.data
       actions.SET_CAROUSEL_IND({ data })
     }
     break
@@ -23,7 +30,6 @@ export const handleActions: Function = (e: object, action: Interfaces.Action): v
     case 'SET_PAGE_IND':
     {
       data = action.data
-      // console.info(`handleActions.js type: ${action.type}`, { data, action, e })
       actions.SET_PAGE_IND({ data })
     }
     break
@@ -31,7 +37,6 @@ export const handleActions: Function = (e: object, action: Interfaces.Action): v
     case 'CLOSE_MODAL_IMG_SIZED':
     {
       data = action.data
-      // console.info(`handleActions.js type: ${action.type}`, { data, action, e })
       actions.CLOSE_MODAL_IMG_SIZED({})
     }
     break
@@ -39,7 +44,6 @@ export const handleActions: Function = (e: object, action: Interfaces.Action): v
     case 'OPEN_MODAL_IMG_SIZED':
     {
       data = action.data
-      // console.info(`handleActions.js type: ${action.type}`, { data, action, e })
       actions.OPEN_MODAL_IMG_SIZED({})
     }
     break
@@ -47,7 +51,6 @@ export const handleActions: Function = (e: object, action: Interfaces.Action): v
     case 'GET_TREE_DATA':
     {
       data = action.data
-      // console.info(`handleActions.js type: ${action.type}`, { data, action, e })
       actions.getActionAsync('GET_TREE_DATA', 'REQUEST', '')
     }
     break
@@ -55,7 +58,6 @@ export const handleActions: Function = (e: object, action: Interfaces.Action): v
     case 'DISPATCH_ACTION':
     {
       data = action.data
-      // console.info(`handleActions.js type: ${action.type}`, { data, action, e })
       actions.DISPATCH_ACTION(data)
     }
     break

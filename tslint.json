@@ -2,7 +2,7 @@
   "rulesDirectory": ["node_modules/tslint-microsoft-contrib"],
   "extends": [
     "tslint-microsoft-contrib/recommended",
-    "tslint-eslint-rules",
+    "tslint-eslint-rules"
   ],
   "rules": {
     "insecure-random": true,
@@ -39,7 +39,7 @@
     "match-default-export-name": true,
     "mocha-avoid-only": true,
     "mocha-no-side-effect-code": true,
-    "no-any": false, // true
+    "no-any": false,
     "no-arg": true,
     "no-backbone-get-set-outside-model": true,
     "no-bitwise": true,
@@ -47,7 +47,6 @@
     "no-console": [
         true,
         "debug",
-        //"info",
         "error",
         "log",
         "time",
@@ -64,7 +63,7 @@
     "no-floating-promises": true,
     "no-for-in-array": true,
     "no-implicit-dependencies": true,
-    "no-import-side-effect": true,
+    "no-import-side-effect": false,
     "no-increment-decrement": true,
     "no-invalid-regexp": true,
     "no-invalid-template-strings": true,
@@ -84,7 +83,7 @@
     "no-unnecessary-callback-wrapper": true,
     "no-unnecessary-initializer": true,
     "no-unnecessary-override": true,
-    "no-unsafe-any": false,  // true
+    "no-unsafe-any": false,
     "no-unsafe-finally": true,
     "no-unused-expression": true,
     "no-use-before-declare": true,
@@ -122,14 +121,14 @@
         false,
         "classes"
     ],
-    "export-name": true,
+    "export-name": false,
     "file-name-casing": [
       true,
       "camel-case",
       "pascal-case"
     ],
     "function-name": true,
-    "import-name": true,
+    "import-name": false,
     "informative-docs": true,
     "interface-name": false,
     "jsdoc-format": true,
@@ -160,10 +159,10 @@
     "new-parens": true,
     "newline-per-chained-call": false,
     "no-construct": true,
-    "no-default-export": true,
+    "no-default-export": false,
     "no-duplicate-imports": true,
     "no-dynamic-delete": true,
-    "no-empty-interface": true,
+    "no-empty-interface": false,
     "no-for-in": true,
     "no-function-expression": true,
     "no-inferrable-types": false,
@@ -264,8 +263,6 @@
     "one-line": [
         true,
         "check-open-brace",
-        // "check-catch",
-        // "check-else",
         "check-whitespace"
     ],
     "quotemark": [
@@ -281,7 +278,7 @@
         true,
         {
             "singleline": "never",
-            "multiline": "always" // never
+            "multiline": "always"
         }
     ],
     "typedef-whitespace": false,

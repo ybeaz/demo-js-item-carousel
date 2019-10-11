@@ -4,16 +4,16 @@ import React, { useState, useEffect, Suspense, Fragment } from 'react'
 import * as Interfaces from '../../Shared/interfaces'
 import * as serviceFunc from '../../Shared/serviceFunc'
 
-import { CommonContainer } from '../Containers/CommonContainer.react'
-import { SectionWrapper } from '../Components/SectionWrapper.react'
+import Header from '../Components/Header.react'
 import NavHorizontal from '../Components/NavigationHorisontal.react'
+import NavTop from '../Components/NavTop.react'
 import Pagination from '../Components/Pagination.react'
+import { SectionWrapper } from '../Components/SectionWrapper.react'
+import { CommonContainer } from '../Containers/CommonContainer.react'
 import Backdrop from '../Modals/Backdrop.react'
 import Spinner from '../Modals/Spinner.react'
-import Header from '../Components/Header.react'
-
-const PictureSized = React.lazy(() => import('../Modals/PictureSized.react'))
-// import PictureSized from '../Modals/PictureSized.react'
+// const PictureSized: JSX.Element = React.lazy(() => import('../Modals/PictureSized.react'))
+import PictureSized from '../Modals/PictureSized.react'
 import ItemCard from '../Components/ItemCard.react'
 
 import './ItemCardScreen.less'
@@ -28,12 +28,12 @@ interface State {
 
 const defaultProps: Props = {
   reduxState: {},
-  handleActions: () => {},
+  handleActions: (): void => {},
 }
 
 const ItemCardScreen_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
   // ************ DEFAULT VALUES ************
-  const props = { ...defaultProps, ...inputProps }
+  const props: Props = { ...defaultProps, ...inputProps }
 
   // ************ LIFECYCLE METHODS ************
   const [isImageLoaded, setIsImageLoaded] = useState(false)
@@ -91,12 +91,12 @@ const ItemCardScreen_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
   // ************ EVENT HANDLERS ************
   const handleEvents: Function = (e: any, action: Interfaces.Action): void => {
     const { handleActions } = props
-    let data: any
     // console.info(`ItemCard->handleEvents() type: ${action.type} [0]`, { handleActions, props, action, e })
 
     switch (action.type) {
 
-      case 'imageLoaded': {
+      case 'imageLoaded': 
+      {
         setIsImageLoaded(true)
       }
       break
@@ -162,6 +162,7 @@ const ItemCardScreen_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
       {displayClassItemCardScreen === 'd_f' ?
         <div className={`ItemCardScreen ${displayClassItemCardScreen}`}>
           <Suspense fallback={<><Backdrop display={true} /><Spinner display /></>}>
+            <NavTop />
             <Header>Demo: Item card screen</Header>
             <NavHorizontal {...navHorisontalProps} />
             <ItemCard {...itemCardElemProps} />
