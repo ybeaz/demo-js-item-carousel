@@ -109,14 +109,14 @@ const ItemListScreen_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
         <Header>Item list screen</Header>
         <NavHorizontal {...navHorisontalProps} />
         <section className='ItemCardScreen__mainSection'>
-        <Suspense fallback={<><Backdrop display={true} /><Spinner /></>}>
+        <Suspense fallback={<><Backdrop display /><Spinner display /></>}>
           {getImageList(groups)}
         </Suspense>
         </section>
       </div>
       : <>
-        <Backdrop display={true} />
-        <Spinner />
+        <Backdrop display />
+        <Spinner display />
       </>
     }
   </SectionWrapper>

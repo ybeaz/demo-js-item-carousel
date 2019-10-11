@@ -65,7 +65,7 @@ const getRoutes = () => routes
         key={i}
         {...{ path, exact }}
         render={() => (
-          <Suspense fallback={<><Backdrop display={true} /><Spinner /></>}>
+          <Suspense fallback={<><Backdrop display /><Spinner display /></>}>
             <Page />
           </Suspense>
         )}
