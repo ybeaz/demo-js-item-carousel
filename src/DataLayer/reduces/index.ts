@@ -3,11 +3,17 @@ import * as Interfaces from '../../Shared/interfaces'
 
 
 const indexCollection: any = (
-  state: any = { pagination: 0, carousel: 0 },
+  state: any = { loginRes: false, pagination: 0, carousel: 0 },
   action: Interfaces.Action,
 ): any => {
 
   switch (action.type) { 
+
+    case 'GET_LOGIN_RES_SUCCESS': {
+      // console.info(`reducer->indexCollection type: ${action.type}`, { state, action })
+      const stateNext: any = { ...state, loginRes: true }
+      return stateNext
+    }
 
     case 'SET_CAROUSEL_IND': {
       const stateNext: any = { ...state, carousel: 0 }

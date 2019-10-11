@@ -9,6 +9,7 @@ export const createRequestTypes = base =>
   }, {})
 
 // Asynchroneous actions for saga
+export const GET_LOGIN_RES: any = createRequestTypes('GET_LOGIN_RES')
 export const GET_TREE_DATA: any = createRequestTypes('GET_TREE_DATA')
 
 // Synchroneours actions
