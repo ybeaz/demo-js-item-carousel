@@ -25,7 +25,7 @@ Using the provided json file, given an input of products, design a page that:
 * Displays the product card with details, including price, product name and the main hero image
 * Display the product image galery 
 * Interacts intuitively; if you click on the image, you should see an overlay with a carousal of all thumbnail images
-* Avoid the screen flickering while the app are loaded. Show spinner and darker background in the time of loading
+* Avoid the screen flickering while the app is loaded. Show spinner and darker background in the time of loading
 * Build app with the help of the only React hooks, utilise modern React features (React.lazy(), Suspence)
 
 
