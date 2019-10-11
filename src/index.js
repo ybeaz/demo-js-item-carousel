@@ -11,6 +11,9 @@ import * as actions from './DataLayer/actions/index'
 import store from './DataLayer/store'
 import * as serviceFunc from './Shared/serviceFunc'
 
+import Spinner from './ViewLayer/Modals/Spinner.react'
+import Backdrop from './ViewLayer/Modals/Backdrop.react'
+
 const ItemCardScreen = React.lazy(() => import('./ViewLayer/Pages/ItemCardScreen.react'))
 const ItemListScreen = React.lazy(() => import('./ViewLayer/Pages/ItemListScreen.react'))
 const Error404Page = React.lazy(() => import('./ViewLayer/Pages/Error404.react'))
@@ -62,7 +65,7 @@ const getRoutes = () => routes
         key={i}
         {...{ path, exact }}
         render={() => (
-          <Suspense fallback={<span>I am working on it ...</span>}>
+          <Suspense fallback={<><Backdrop display={true} /><Spinner /></>}>
             <Page />
           </Suspense>
         )}

@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { Suspense, useState, useEffect } from 'react'
 import LazyLoad from 'react-lazyload'
 
 import { CommonContainer } from '../Containers/CommonContainer.react'
 import { SectionWrapper } from '../Components/SectionWrapper.react'
+import NavHorizontal from '../Components/NavigationHorisontal.react'
 import ItemCard from '../Components/ItemCard.react'
+import Header from '../Components/Header.react'
+import Backdrop from '../Modals/Backdrop.react'
+import Spinner from '../Modals/Spinner.react'
 
 import * as Interfaces from '../../Shared/interfaces'
 
@@ -46,7 +50,9 @@ const ItemListScreen_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
     const images = []
     groups.forEach(item => {
       const { images: images1, id, name, priceRange } = item
-      const images2 = images1.map(item1 => ({ ...item1, id, name, priceRange }))
+      const { regular = {} } = groups ? priceRange : {}
+      const { high = 0, low = 0 } = groups ? regular : {}
+      const images2 = images1.map(item1 => ({ ...item1, id, name, high, low }))
       images2.forEach(item => images.push(item))
     })
 
@@ -59,7 +65,7 @@ const ItemListScreen_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
     const imagesArr: any[] = arrTransform(groups)
 
     return imagesArr.map((item: any, i: number) => {
-      const itemCardElemProps = { handleEvents: () => {}, ...item}
+      const itemCardElemProps = { handleEvents: () => {}, ...item, classNameAdd: 'ItemCard_itemListScreen'}
       return (
         <LazyLoad key={`LazyLoad_${item.id}_${i}`} height={200} offset={100}>
           <ItemCard key={`ItemCard_${item.id}_${i}`} {...itemCardElemProps} />
@@ -90,10 +96,28 @@ const ItemListScreen_: React.SFC<Props> = (inputProps: Props): JSX.Element => {
 
   // ************ RENDER SECTION ************
   const action = { type: 'action1'}
+  const navHorisontalProps: any = { 
+    navList: [
+      { capture: 'Item card', to: '/demo-js-item-carousel.html/item0', active: false },
+      { capture: 'Item list', to: '/demo-js-item-carousel.html/ItemList', active: true },
+    ],
+  }
+
   return <SectionWrapper>
     {groups && !!groups.length ?
-      <>{getImageList(groups)}</>
-      : <>Wait loading...</>
+      <div className='ItemCardScreen'>
+        <Header>Item list screen</Header>
+        <NavHorizontal {...navHorisontalProps} />
+        <section className='ItemCardScreen__mainSection'>
+        <Suspense fallback={<><Backdrop display={true} /><Spinner /></>}>
+          {getImageList(groups)}
+        </Suspense>
+        </section>
+      </div>
+      : <>
+        <Backdrop display={true} />
+        <Spinner />
+      </>
     }
   </SectionWrapper>
 }

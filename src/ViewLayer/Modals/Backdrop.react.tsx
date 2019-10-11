@@ -2,21 +2,21 @@ import React from 'react'
 
 import { CommonContainer } from '../Containers/CommonContainer.react'
 
+import './Backdrop.less'
+
 interface Props {
   readonly sid?: string,
-  readonly reduxState: any,
+  readonly display: boolean,
 }
 
 const defaultProps: Props = {
   sid: '',
-  reduxState: {},
+  display: false,
 }
 
-const BackdropModal: React.SFC<Props> = (props: Props): JSX.Element => {
-  const propsPrivate: Props = { ...defaultProps, ...props }
-  const { reduxState, sid } = propsPrivate
-  const { modalWindows } = reduxState
-  const { display } = modalWindows
+const BackdropModal: React.SFC<Props> = (propsInput: Props): JSX.Element => {
+  const props = { ...defaultProps, ...propsInput }
+  const { display, sid } = props
   
   const getDisplayClass: Function = (status: boolean): string => {
 
@@ -35,5 +35,5 @@ const BackdropModal: React.SFC<Props> = (props: Props): JSX.Element => {
   )
 }
 
-export const Backdrop: any = CommonContainer(BackdropModal)
+export default CommonContainer(BackdropModal)
 

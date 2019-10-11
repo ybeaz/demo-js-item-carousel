@@ -7,6 +7,9 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = merge(common, {
   mode: 'production',
+  output: {
+    publicPath: 'https://r1.userto.com/dist/JsItemCarousel/',
+  },
   devtool: 'source-map',
   plugins: [
     new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }),

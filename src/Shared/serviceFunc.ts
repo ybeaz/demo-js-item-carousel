@@ -2,9 +2,23 @@
 
 
 /**
+ * @description Returns class display class in responce to the boolean input
+ */
+export const getDisplayClass: Function = (isTrue: boolean): string => 
+  isTrue === true ? 'd_f' : 'd_n'
+export const getRevDisplayClass: Function = (isTrue: boolean): string => 
+  isTrue === true ? 'd_n' : 'd_f'
+
+/**
+ * @description Returns class for nav in responce to the boolean input
+ */
+export const getNavActiveClass: Function = (isTrue: boolean): string => 
+  isTrue === true ? 'NavHorizontal__capture_active' : ''
+
+/**
  * @description Returns true for devMode and false for production
  */
-export const devModeTrueFalse: Function = (): boolean => {
+export const isDevModeTrueFalse: Function = (): boolean => {
   let devMode: boolean = false
   if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
     devMode = true
@@ -17,11 +31,11 @@ export const devModeTrueFalse: Function = (): boolean => {
  * @description Returns endpoint
  */
 export const getEndpoint: Function = (): string => {
-  let endpoint: string = 'https://r1.userto.com/dist/jsItemCarousel.json'
-  if (devModeTrueFalse() === true) {
+  let endpoint: string = 'https://r1.userto.com/dist/JsItemCarousel/JsItemCarousel.json'
+  if (isDevModeTrueFalse() === true) {
     // endpoint = 'http://localhost:8081/api/apiP2p/2.0'
     // endpoint = 'https://nd.userto.com/api/apiP2p/2.0'
-    endpoint = 'http://127.0.0.1:3420/dist/dist/jsItemCarousel.json'
+    endpoint = 'http://127.0.0.1:3420/dist/JsItemCarousel/JsItemCarousel.json'
   }
 
   return endpoint

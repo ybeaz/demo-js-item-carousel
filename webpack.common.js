@@ -8,12 +8,12 @@
 
 const webpack = require('webpack')
 const glob = require('glob')
+const path = require('path')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TSLintPlugin = require('tslint-webpack-plugin')
 
 // var MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
-const path = require('path')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const styledComponentsTransformer = require('typescript-plugin-styled-components').default;
 const keysTransformer = require('ts-transformer-keys/transformer').default;
@@ -23,9 +23,8 @@ module.exports = {
     JsItemCarousel: ['./src/index.js'], // ['babel-polyfill', './index.js', './index.tsx']
   },
   output: {
-    path: path.resolve(__dirname, 'dist/dist'),
+    path: path.resolve(__dirname, 'dist/JsItemCarousel'),
     filename: '[name].min.js',
-    publicPath: 'https://r1.userto.com/dist/JsItemCarousel/',
     chunkFilename: '[id].chunk.js',
   },
   resolve: {

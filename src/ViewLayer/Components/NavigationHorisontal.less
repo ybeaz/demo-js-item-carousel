@@ -1,33 +1,36 @@
 /* Import common constants, standards &styles */
 @import '../CssStyles/index.less';
 
-.Navigation {
+.NavHorizontal {
 }
 
-.Navigation__ul {
-  &:extend(.m_x_0, .p_x_0);
+.NavHorizontal__ul {
+  &:extend(.d_f, .m_x_0, .p_x_0);
 }
 
-.Navigation__li {
+.NavHorizontal__li {
+  &:extend(.m_b_0, .p_r_0p5_rem);
   letter-spacing: 1px;
   font-family: "GT-Eesti 4r",Arial,sans-serif;
   font-size: 12px;
   font-weight: normal;
   line-height: initial;
-  /* padding: 0 10px; */
-  margin-bottom: 0;
   list-style-type: none;
 }
 
-.Navigation__a {
+.NavHorizontal__a {
   padding-bottom: 0px;
   border-bottom: 2px solid transparent;
   color: #363636;
   text-decoration: none;
   cursor: pointer;
-  line-height: 38px;
+  line-height: 25px;
   /* display: block; */
   white-space: nowrap;
   color: #363636;
   text-transform: uppercase;
+}
+
+.NavHorizontal__capture_active {
+  border-bottom: 1px solid #866347;
 }

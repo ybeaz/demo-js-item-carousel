@@ -2,7 +2,7 @@
 @import '../CssStyles/index.less';
 
 .ItemCard {
-  &:extend(.pos_r);
+  &:extend(.pos_r, .w_f_c);
 
   @media @large {
 
@@ -52,6 +52,7 @@
 
       }
 
-.ItemCard:not(:first-child) {
-  .m_y_4_rem;
+.ItemCard_itemListScreen {
+  .m_b_4_rem;
+  .m_r_4_rem;
 }
